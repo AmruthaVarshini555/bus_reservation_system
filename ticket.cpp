@@ -71,7 +71,7 @@ void Ticket::bookTicket()
         busFileStream.read((char *)&b, sizeof(b));
         while (!busFileStream.eof())
         {
-            if (strcmpi(b.getSource(), from) == 0 && strcmpi(b.getDestination(), to) == 0)
+            if (strcmp(b.getSource(), from) == 0 && strcmp(b.getDestination(), to) == 0)
             {
                 b.showBusDetails();
                 chk = 1;
@@ -99,7 +99,7 @@ void Ticket::bookTicket()
             busFileStream.read((char *)&b, sizeof(b));
             while (!busFileStream.eof())
             {
-                if (strcmpi(b.getSource(), from) == 0 && strcmpi(b.getDestination(), to) == 0 && strcmp(b.getBusNo(), bNo) == 0)
+                if (strcmp(b.getSource(), from) == 0 && strcmp(b.getDestination(), to) == 0 && strcmp(b.getBusNo(), bNo) == 0)
                 {
                     if (b.getBookedSeats() >= 32)
                     {
@@ -362,7 +362,7 @@ void Ticket::showTicketsByName()
         ticketFileStream.read((char *)this, sizeof(*this));
         while (!ticketFileStream.eof())
         {
-            if (strcmpi(getName(), n) == 0)
+            if (strcmp(getName(), n) == 0)
             {
                 displayTicket();
                 chk = 1;
@@ -450,7 +450,7 @@ void Ticket::showTicketsBySource()
         ticketFileStream.read((char *)this, sizeof(*this));
         while (!ticketFileStream.eof())
         {
-            if (strcmpi(bus.getSource(), s) == 0)
+            if (strcmp(bus.getSource(), s) == 0)
             {
                 displayTicket();
                 chk = 1;
@@ -494,7 +494,7 @@ void Ticket::showTicketsByDestination()
         ticketFileStream.read((char *)this, sizeof(*this));
         while (!ticketFileStream.eof())
         {
-            if (strcmpi(bus.getDestination(), d) == 0)
+            if (strcmp(bus.getDestination(), d) == 0)
             {
                 displayTicket();
                 chk = 1;
