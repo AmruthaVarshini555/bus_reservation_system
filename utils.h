@@ -1,6 +1,6 @@
 #ifndef UTILS_H
 #define UTILS_H
-
+#include<iostream>
 #include <cstdlib>
 #include <string>
 #include <ctime>
