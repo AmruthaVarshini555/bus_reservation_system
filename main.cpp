@@ -18,11 +18,9 @@ void welcomeScreen();
 // MAIN FUNCTION
 int main()
 {
-    system("cls");
-    system("COLOR 0f");
-
+    system("clear");
+    //system("COLOR 0f");
     welcomeScreen();
-
     return 0;
 }
 
@@ -32,21 +30,23 @@ void welcomeScreen()
     system("cls");
 
     cout << "\n\n\n\n";
-    cout << "\t\t\t\t\t\t\t\t\t\t================================================\n";
-    cout << "\t\t\t\t\t\t\t\t\t\t||                  WELCOME TO                ||\n";
-    cout << "\t\t\t\t\t\t\t\t\t\t||                                            ||\n";
-    cout << "\t\t\t\t\t\t\t\t\t\t||      BUS RESERVATION SYSTEM MANAGEMENT     ||\n";
-    cout << "\t\t\t\t\t\t\t\t\t\t||                                            ||\n";
-    cout << "\t\t\t\t\t\t\t\t\t\t||                    PROJECT                 ||\n";
-    cout << "\t\t\t\t\t\t\t\t\t\t================================================\n\n\n";
+    cout << "\t\t\t================================================\n";
+    cout << "\t\t\t||                  WELCOME TO                ||\n";
+    cout << "\t\t\t||                                            ||\n";
+    cout << "\t\t\t||      BUS RESERVATION SYSTEM MANAGEMENT     ||\n";
+    cout << "\t\t\t||                                            ||\n";
+    cout << "\t\t\t||                    PROJECT                 ||\n";
+    cout << "\t\t\t================================================\n\n\n";
 
-    cout << "\t\t\t\t\t\t\t\t\t\t-------------------------------------------------\n";
-    cout << "\t\t\t\t\t\t\t\t\t\t\t\t  Developed By:-                             \t\n";
-    cout << "\t\t\t\t\t\t\t\t\t\t\t\t                                             \t\n";
-    cout << "\t\t\t\t\t\t\t\t\t\t\t\t  NIKHIL RAJPUT                              \t\n";
-    cout << "\t\t\t\t\t\t\t\t\t\t-------------------------------------------------\n\n";
+    cout << "\t\t\t-------------------------------------------------\n";
+    cout << "\t\t\t  Developed By:-                             \t\n";
+    cout << "\t\t\t                                            \t\n";
+    cout << "\t\t\t  Group 3                             \t\n";
+    cout << "\t\t\t-------------------------------------------------\n\n";
 
-    system("pause");
+    //system("pause");
+    cout<<"Press any key to continue";
+    getchar();
     mainMenu();
 }
 
@@ -54,26 +54,22 @@ void welcomeScreen()
 void mainMenu()
 {
     int choice;
-
     while (1)
     {
-        system("cls");
-
+        system("clear");
         // MENU ITEMS
-        printHeading("MAIN MENU");
+        //printHeading("MAIN MENU");
+        cout<<"\t\t\t MAINMENU\n";
+        cout << "\t\t\t-------------------------------------------------\n";
+        cout << "\t\t\t 1. User Menu                                    \n";
+        cout << "\t\t\t-------------------------------------------------\n";
+        cout << "\t\t\t 2. Admin Menu                                   \n";
+        cout << "\t\t\t-------------------------------------------------\n";
+        cout << "\t\t\t 3. EXIT                                         \n";
+        cout << "\t\t\t-------------------------------------------------\n\n";
 
-        cout << "\t\t\t\t\t\t\t\t\t\t-------------------------------------------------\n";
-        cout << "\t\t\t\t\t\t\t\t\t\t 1. User Menu                                    \n";
-        cout << "\t\t\t\t\t\t\t\t\t\t-------------------------------------------------\n";
-        cout << "\t\t\t\t\t\t\t\t\t\t 2. Admin Menu                                   \n";
-        cout << "\t\t\t\t\t\t\t\t\t\t-------------------------------------------------\n";
-        cout << "\t\t\t\t\t\t\t\t\t\t 3. EXIT                                         \n";
-        cout << "\t\t\t\t\t\t\t\t\t\t-------------------------------------------------\n\n";
-
-        cout << "\n\t\t\t\t\t\t\t\t\t\tEnter your choice:-> ";
-
+        cout << "\n\t\tEnter your choice:-> ";
         cin >> choice;
-
         switch (choice)
         {
         case 1:
@@ -85,14 +81,16 @@ void mainMenu()
             break;
 
         case 3:
-            system("cls");
-            cout << "\n\n\n\n\t\t\t\t\t\t\t\t\t\t  Thanks for using our project...!!! \t\t\t\n";
-            cout << "\n\n\t\t\t\t\t\t\t\t\t\t          Have a nice day...!!!      \t\t\t\n\n";
+            system("clear");
+            cout << "\n\n\n\n\t\t\t  Thanks for using our project...!!! \n";
+            cout << "\n\n\t\t\t         Have a nice day...!!!\n";
             exit(0);
 
         default:
-            cout << "\n\n\t\t\t\t\t\t\t\t\t\t  Choose valid option!!! \t\t\t\n";
-            system("pause");
+            cout << "\n\n\t\t\t  Choose valid option!!! \t\t\t\n";
+            //system("pause");
+            cout<<"Press any key to continue...!!";
+            getchar();
             mainMenu();
         }
     }
@@ -102,24 +100,22 @@ void mainMenu()
 void adminLogin()
 {
     string adminUname, adminPass;
-
-    system("cls");
-
-    printHeading("ADMIN LOGIN");
-
-    cout << "\n\t\t\t\t\t\t\t\t\t\tEnter AdminID:-> ";
+    system("clear");
+    //printHeading("ADMIN LOGIN");
+    cout<<"\n\t\t\tADMIN LOGIN";
+    cout << "\n\t\t\tEnter AdminID:-> ";
     cin >> adminUname;
-    cout << "\n\t\t\t\t\t\t\t\t\t\tEnter Password:-> ";
+    cout << "\n\t\t\tEnter Password:-> ";
     cin >> adminPass;
-
-    if (adminUname == "admin" && adminPass == "pass")
+    if (adminUname == "group3" && adminPass == "Capg@123")
     {
         adminMenu();
     }
     else
     {
-        cout << "\n\t\t\t\t\t\t\t\t\t\tUsername or Password is wrong...!!! ";
-        system("pause");
+        cout << "\n\t\t\tUsername or Password is wrong...!!! ";
+        //system("pause");
+        cout<<"\n\tTry again..";
         adminLogin();
     }
 }
@@ -129,55 +125,50 @@ void userMenu()
 {
 
     int choice;
-
     while (1)
     {
-        system("cls");
-
+        system("clear");
         Ticket t;
-
         // MENU ITEMS
-        printHeading("USER MENU");
+        //printHeading("USER MENU");
+        cout<<"\n\t\t\tUSER MENU";
+        cout << "\t\t\t-------------------------------------------------\n";
+        cout << "\t\t\t 1. Book Ticket                                  \n";
+        cout << "\t\t\t-------------------------------------------------\n";
+        cout << "\t\t\t 2. View Ticket                                  \n";
+        cout << "\t\t\t-------------------------------------------------\n";
+        cout << "\t\t\t 3. Cancel Ticket                                \n";
+        cout << "\t\t\t-------------------------------------------------\n";
+        cout << "\t\t\t 4. BACK                                         \n";
+        cout << "\t\t\t-------------------------------------------------\n";
 
-        cout << "\t\t\t\t\t\t\t\t\t\t-------------------------------------------------\n";
-        cout << "\t\t\t\t\t\t\t\t\t\t 1. Book Ticket                                  \n";
-        cout << "\t\t\t\t\t\t\t\t\t\t-------------------------------------------------\n";
-        cout << "\t\t\t\t\t\t\t\t\t\t 2. View Ticket                                  \n";
-        cout << "\t\t\t\t\t\t\t\t\t\t-------------------------------------------------\n";
-        cout << "\t\t\t\t\t\t\t\t\t\t 3. Cancel Ticket                                \n";
-        cout << "\t\t\t\t\t\t\t\t\t\t-------------------------------------------------\n";
-        cout << "\t\t\t\t\t\t\t\t\t\t 4. BACK                                         \n";
-        cout << "\t\t\t\t\t\t\t\t\t\t-------------------------------------------------\n";
-
-        cout << "\n\t\t\t\t\t\t\t\t\t\tEnter your choice:-> ";
-
+        cout << "\n\t\t Enter your choice:-> ";
         cin >> choice;
-
         switch (choice)
         {
         case 1:
             t.bookTicket();
-            system("pause");
+            //system("pause");
             break;
 
         case 2:
             t.showTicketsByPNR();
-            system("pause");
+            //system("pause");
             break;
 
         case 3:
             t.cancelTicket();
-            system("pause");
+            //system("pause");
             break;
 
         case 4:
-            system("cls");
+            system("clear");
             mainMenu();
             break;
 
         default:
             cout << "\n\t\t\t\t\t  Choose valid option!!! \t\t\t\n";
-            system("pause");
+            //system("pause");
             break;
             userMenu();
         }
@@ -189,41 +180,37 @@ void adminMenu()
 {
     Bus b;
     Ticket t;
-
     int choice;
-
     while (1)
     {
-        system("cls");
+        system("clear");
 
-        printHeading("ADMIN PORTAL");
+        //printHeading("ADMIN PORTAL");
+        cout<<"\t\t\tADMIN PORTAL\n";
+        cout << "\t\t\t-------------------------------------------------\n";
+        cout << "\t\t\t 1. Add Bus                                      \n";
+        cout << "\t\t\t-------------------------------------------------\n";
+        cout << "\t\t\t 2. View Buses                                   \n";
+        cout << "\t\t\t-------------------------------------------------\n";
+        cout << "\t\t\t 3. Book Ticket                                  \n";
+        cout << "\t\t\t-------------------------------------------------\n";
+        cout << "\t\t\t 4. Edit Ticket                                  \n";
+        cout << "\t\t\t-------------------------------------------------\n";
+        cout << "\t\t\t 5. Cancel Ticket                                \n";
+        cout << "\t\t\t-------------------------------------------------\n";
+        cout << "\t\t\t 6. View Bookings                                \n";
+        cout << "\t\t\t-------------------------------------------------\n";
+        cout << "\t\t\t 7. View Bus Details                             \n";
+        cout << "\t\t\t-------------------------------------------------\n";
+        cout << "\t\t\t 8. Edit Bus                                     \n";
+        cout << "\t\t\t-------------------------------------------------\n";
+        cout << "\t\t\t 9. Delete Bus                                   \n";
+        cout << "\t\t\t-------------------------------------------------\n";
+        cout << "\t\t\t 10. BACK                                        \n";
+        cout << "\t\t\t-------------------------------------------------\n\n";
 
-        cout << "\t\t\t\t\t\t\t\t\t\t-------------------------------------------------\n";
-        cout << "\t\t\t\t\t\t\t\t\t\t 1. Add Bus                                      \n";
-        cout << "\t\t\t\t\t\t\t\t\t\t-------------------------------------------------\n";
-        cout << "\t\t\t\t\t\t\t\t\t\t 2. View Buses                                   \n";
-        cout << "\t\t\t\t\t\t\t\t\t\t-------------------------------------------------\n";
-        cout << "\t\t\t\t\t\t\t\t\t\t 3. Book Ticket                                  \n";
-        cout << "\t\t\t\t\t\t\t\t\t\t-------------------------------------------------\n";
-        cout << "\t\t\t\t\t\t\t\t\t\t 4. Edit Ticket                                  \n";
-        cout << "\t\t\t\t\t\t\t\t\t\t-------------------------------------------------\n";
-        cout << "\t\t\t\t\t\t\t\t\t\t 5. Cancel Ticket                                \n";
-        cout << "\t\t\t\t\t\t\t\t\t\t-------------------------------------------------\n";
-        cout << "\t\t\t\t\t\t\t\t\t\t 6. View Bookings                                \n";
-        cout << "\t\t\t\t\t\t\t\t\t\t-------------------------------------------------\n";
-        cout << "\t\t\t\t\t\t\t\t\t\t 7. View Bus Details                             \n";
-        cout << "\t\t\t\t\t\t\t\t\t\t-------------------------------------------------\n";
-        cout << "\t\t\t\t\t\t\t\t\t\t 8. Edit Bus                                     \n";
-        cout << "\t\t\t\t\t\t\t\t\t\t-------------------------------------------------\n";
-        cout << "\t\t\t\t\t\t\t\t\t\t 9. Delete Bus                                   \n";
-        cout << "\t\t\t\t\t\t\t\t\t\t-------------------------------------------------\n";
-        cout << "\t\t\t\t\t\t\t\t\t\t 10. BACK                                        \n";
-        cout << "\t\t\t\t\t\t\t\t\t\t-------------------------------------------------\n\n";
-
-        cout << "\n\t\t\t\t\t\t\t\t\t\tEnter your choice:-> ";
-
+        cout << "\n\t\tEnter your choice:-> ";
         cin >> choice;
-
         switch (choice)
         {
         case 1:
@@ -271,12 +258,12 @@ void adminMenu()
             break;
 
         case 10:
-            system("cls");
+            system("clear");
             mainMenu();
             break;
 
         default:
-            cout << "\n\t\t\t\t\t  Choose valid option!!! \t\t\t\n";
+            cout << "\n\t\t Choose valid option!!! \t\t\t\n";
             system("pause");
             adminMenu();
         }
@@ -287,35 +274,30 @@ void adminMenu()
 void viewBookingsMenu()
 {
     Ticket t;
-
     int choice;
-
     while (1)
     {
-        system("cls");
+        system("clear");
+       // printHeading("VIEW BOOKINGS");
+        cout<<"\nVIEW BOOKINGS";
+        cout << "\t\t\t-------------------------------------------------\n";
+        cout << "\t\t\t 1. By PNR                                      \n";
+        cout << "\t\t\t-------------------------------------------------\n";
+        cout << "\t\t\t 2. By Name                                      \n";
+        cout << "\t\t\t-------------------------------------------------\n";
+        cout << "\t\t\t 3. By Bus                                       \n";
+        cout << "\t\t\t-------------------------------------------------\n";
+        cout << "\t\t\t 4. By Source                                    \n";
+        cout << "\t\t\t-------------------------------------------------\n";
+        cout << "\t\t\t 5. By Destination                               \n";
+        cout << "\t\t\t-------------------------------------------------\n";
+        cout << "\t\t\t 6. All Bookings                                 \n";
+        cout << "\t\t\t-------------------------------------------------\n";
+        cout << "\t\t\t 7. BACK                                         \n";
+        cout << "\t\t\t-------------------------------------------------\n\n";
 
-        printHeading("VIEW BOOKINGS");
-
-        cout << "\t\t\t\t\t\t\t\t\t\t-------------------------------------------------\n";
-        cout << "\t\t\t\t\t\t\t\t\t\t 1. By PNR                                      \n";
-        cout << "\t\t\t\t\t\t\t\t\t\t-------------------------------------------------\n";
-        cout << "\t\t\t\t\t\t\t\t\t\t 2. By Name                                      \n";
-        cout << "\t\t\t\t\t\t\t\t\t\t-------------------------------------------------\n";
-        cout << "\t\t\t\t\t\t\t\t\t\t 3. By Bus                                       \n";
-        cout << "\t\t\t\t\t\t\t\t\t\t-------------------------------------------------\n";
-        cout << "\t\t\t\t\t\t\t\t\t\t 4. By Source                                    \n";
-        cout << "\t\t\t\t\t\t\t\t\t\t-------------------------------------------------\n";
-        cout << "\t\t\t\t\t\t\t\t\t\t 5. By Destination                               \n";
-        cout << "\t\t\t\t\t\t\t\t\t\t-------------------------------------------------\n";
-        cout << "\t\t\t\t\t\t\t\t\t\t 6. All Bookings                                 \n";
-        cout << "\t\t\t\t\t\t\t\t\t\t-------------------------------------------------\n";
-        cout << "\t\t\t\t\t\t\t\t\t\t 7. BACK                                         \n";
-        cout << "\t\t\t\t\t\t\t\t\t\t-------------------------------------------------\n\n";
-
-        cout << "\n\t\t\t\t\t\t\t\t\t\tEnter your choice:-> ";
-
+        cout << "\n\t\tEnter your choice:-> ";
         cin >> choice;
-
         switch (choice)
         {
         case 1:
@@ -354,7 +336,7 @@ void viewBookingsMenu()
             break;
 
         default:
-            cout << "\n\t\t\t\t\t  Choose valid option!!! \t\t\t\n";
+            cout << "\n\t\t Choose valid option!!! \t\t\t\n";
             system("pause");
             viewBookingsMenu();
         }
