@@ -11,26 +11,6 @@
 
 using namespace std;
 
-// GETTERS
-char Ticket:: *getName()
-{
-    return name;
-}
-char Ticket:: *getPnrNo()
-{
-    return pnrNo;
-}
-char Ticket:: *getDate()
-{
-    return date;
-}
- // SETTERS
-void Ticket:: setName(char *n)
-{
-    if (n && n[0])
-        strcpy(name, n);
-}
-
 // GENERATE TICKET
 void Ticket::generateTicket(char *n, Bus b)
 {
