@@ -6,9 +6,6 @@ busreservationsystem: main.o menu.o bus.o ticket.o
 main.o: main.cpp
         g++ -c menu.h main.cpp
 
-menu.o: menu.cpp
-        g++ -c menu.h menu.cpp
-
 bus.o: bus.cpp
         g++ -c bus.h bus.cpp
 
