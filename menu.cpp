@@ -147,7 +147,7 @@ void Menu::userLogin(){
             }
             cout<<"\nCreate a password: ";
             cin>>pswd;
-            fileo.open("user.txt","a");
+            fileo.open("user.txt");
             fileo<<username<<","<<name<<","<<pswd<<endl;
             cout<<"\nYour are registered successfully";
             cout<<"\nPress any key to continue..";
@@ -157,12 +157,12 @@ void Menu::userLogin(){
             cin>>username;
             cout<<"\nEnter your password: ";
             cin>>pswd;
-            filei.open("user.txt","r");
+            filei.open("user.txt");
             if(!filei.is_open() && filei.fail())
             {
                 cout<<"\nYou are not registered, please register before logging in..";
                 filei.close();
-                continue;
+                //continue;
             }
             getline(filei,usrname);
             getline(filei,password);
