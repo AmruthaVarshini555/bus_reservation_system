@@ -45,13 +45,13 @@ double Bus:: getBusFare()
     return busFare;
 }
 // SETTERS
-void BUS:: setBookedSeats()
+void Bus:: setBookedSeats()
 {
-    bookedSeats++;
+    bookedSeats=bookedSeats + 1;
 }
 void Bus:: setCancelTicket()
 {
-    bookedSeats--;
+    bookedSeats=bookedSeats - 1;
 }
 void Bus:: setSource(char *s)
 {
@@ -140,7 +140,7 @@ void Bus::showAllBus()
         }
         bus.close();
     }
-    LOG_INFO("\nVIEW ALL BUS INFO"):
+    LOG_INFO("\nVIEW ALL BUS INFO");
 }
 
 // VIEW BUS INFO
