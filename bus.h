@@ -1,5 +1,5 @@
-#ifndef BUS_H
-#define BUS_H
+#ifndef __BUS_H__
+#define __BUS_H__
 #include"logger.h"
 #include"header.h"
 #include <iostream>
@@ -127,4 +127,4 @@ void setBusFare(double f)
         LOG_INFO("\nBus Destructor invoked");
     }
 };
-#endif //BUS_H
+#endif //__BUS_H__
