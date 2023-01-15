@@ -144,7 +144,7 @@ void Ticket::cancelTicket()
     system("clear");
     char pnr[SIZE];
     int check = 0;
-    fstream bus, ticket, temp, bus;
+    fstream bus, ticket, temp, busTemp;
 
     cout<<"\n------------CANCEL TICKET--------------";
     cout << "\n\tEnter PNR Number:-> ";
@@ -169,23 +169,23 @@ void Ticket::cancelTicket()
             {
                 Bus b;
                 bus.open("buses.dat", ios::in | ios::app | ios::binary);
-                bus.open("bustemp.dat", ios::out | ios::app | ios::binary);
+                busTemp.open("bustemp.dat", ios::out | ios::app | ios::binary);
                 bus.read((char *)&b, sizeof(b));
                 while (!bus.eof())
                 {
-                    if (strcmp(b.getBusNo(), bus.getBusNo()) == 0)
+                    if (strcmp(b.getBusNo(), b.getBusNo()) == 0)
                     {
                         b.setCancelTicket();
-                        bus.write((char *)&b, sizeof(b));
+                        busTemp.write((char *)&b, sizeof(b));
                     }
                     else
                     {
-                        bus.write((char *)&b, sizeof(b));
+                        busTemp.write((char *)&b, sizeof(b));
                     }
                     bus.read((char *)&b, sizeof(b));
                 }
                 bus.close();
-                bus.close();
+                busTemp.close();
                 remove("buses.dat");
                 rename("bustemp.dat", "buses.dat");
                 check = 1;
@@ -218,15 +218,15 @@ void Ticket::editTicket()
     char pnr[SIZE];
     int check = 0;
     fstream ticket, temp;
-    cout<<"\n------------EDIT TICKET-------------");
+    cout<<"\n------------EDIT TICKET-------------";
     cout << "\n\tEnter PNR Number:-> ";
     cin.ignore();
     cin.getline(pnr,SIZE);
 
     ticket.open("tickets.dat", ios::in | ios::app | ios::binary);
-    if (ticketFileStream.fail())
+    if (ticket.fail())
     {
-        cout << "\n\t\t\t\t\t\t\t\t\t\tCan't Open File...!!\n";
+        cout << "\n\tCan't Open File...!!\n";
     }
     else
     {
@@ -275,7 +275,7 @@ void Ticket::showTicketsByPNR()
 {
     system("clear");
     char pnr[SIZE];
-    int chk = 0;
+    int check = 0;
     fstream ticket;
 
     cout<<"\n-------SHOW BOOKINGS BY PNR--------";
