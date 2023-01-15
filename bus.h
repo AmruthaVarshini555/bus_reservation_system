@@ -3,6 +3,7 @@
 #include"logger.h"
 #include"header.h"
 #include <iostream>
+#include<cstring>
 using namespace std;
 
 // CLASS BUS
