@@ -143,7 +143,7 @@ void Menu::userLogin(){
             valid(username);
             if(tm>=3)
             {
-                continue;
+                //continue;
             }
             cout<<"\nCreate a password: ";
             cin>>pswd;
