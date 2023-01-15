@@ -94,7 +94,7 @@ void Menu::adminMenu()
         {
             case 1: b.addBus();
                     break;
-            case 2: b.viewBus() ;
+            case 2: b.showAllBus() ;
                     break;
             case 3: t.bookTicket();
                     break;
@@ -104,7 +104,7 @@ void Menu::adminMenu()
                     break;
             case 6: m.viewBookingsMenu();
                     break;
-            case 7: b.showBusDetails();
+            case 7: b.viewBusDetails();
                     break;
             case 8: b.editBus();
                     break;
@@ -177,14 +177,16 @@ void Menu::userMenu()
         {
             case 1: t.bookTicket();
                     break;
-            case 2: t.displayTicket();
+            case 2: t.showTicketByPNR();
                     break;
             case 3: t.cancelTicket();
                     break;
             case 4: m.mainMenu();
                     break;
-            default: cout<<"Invaild choice";
-                     m.userMenu();
+            default: 
+                cout<<"Invaild choice";
+                system("PAUSE");     
+                m.userMenu();
         }
     }
 }
