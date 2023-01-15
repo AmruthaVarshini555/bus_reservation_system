@@ -3,16 +3,38 @@
 #include <cstring>
 #include <fstream>
 #include <iomanip>
-
+#include"header.h"
+#include"logger.h"
 #include "ticket.h"
 #include "bus.h"
 #include "utils.h"
 
 using namespace std;
 
+// GETTERS
+char Ticket:: *getName()
+{
+    return name;
+}
+char Ticket:: *getPnrNo()
+{
+    return pnrNo;
+}
+char Ticket:: *getDate()
+{
+    return date;
+}
+ // SETTERS
+void Ticket:: setName(char *n)
+{
+    if (n && n[0])
+        strcpy(name, n);
+}
+
 // GENERATE TICKET
 void Ticket::generateTicket(char *n, Bus b)
 {
+    LOG_INFO("\nTicket Generation");
     strcpy(name, n);
     strcpy(pnrNo, generatePNR(99999).c_str());
     strcpy(date, getCurrentDate().c_str());
@@ -22,518 +44,481 @@ void Ticket::generateTicket(char *n, Bus b)
 // DISPLAY TICKET DETAILS
 void Ticket::displayTicket()
 {
-    cout << "\t\t\t\t\t\t\t\t\t\t-------------------------------------------------\n";
-    cout << "\t\t\t\t\t\t\t\t\t\t Name:-> " << getName();
-    cout << "\n\t\t\t\t\t\t\t\t\t\t PNR No:-> " << getPnrNo();
-    cout << "\n\t\t\t\t\t\t\t\t\t\t Bus No:-> " << bus.getBusNo();
-    cout << "\n\t\t\t\t\t\t\t\t\t\t Seat No.:-> " << bus.getBookedSeats();
-    cout << "\n\t\t\t\t\t\t\t\t\t\t Date:-> " << getDate();
-    cout << "\n\t\t\t\t\t\t\t\t\t\t From:-> " << bus.getSource();
-    cout << "\n\t\t\t\t\t\t\t\t\t\t To:-> " << bus.getDestination();
-    cout << "\n\t\t\t\t\t\t\t\t\t\t Source Time:-> " << bus.getSourceTime();
-    cout << "\n\t\t\t\t\t\t\t\t\t\t Destination Time:-> " << bus.getDestinationTime();
+    cout << "\n-----------DISPLAY TICKET-------------\n";
+    cout << "\n\t Name:-> " << getName();
+    cout << "\n\t PNR No:-> " << getPnrNo();
+    cout << "\n\t Bus No:-> " << bus.getBusNo();
+    cout << "\n\t Seat No.:-> " << bus.getBookedSeats();
+    cout << "\n\t Date:-> " << getDate();
+    cout << "\n\t Source:-> " << bus.getSource();
+    cout << "\n\t Destination:-> " << bus.getDestination();
+    cout << "\n\t Start Time:-> " << bus.getSourceTime();
+    cout << "\n\t Destination Time:-> " << bus.getDestinationTime();
     cout << fixed << setprecision(2);
-    cout << "\n\t\t\t\t\t\t\t\t\t\t Bus Fare:-> " << bus.getBusFare();
-    cout << "\n\t\t\t\t\t\t\t\t\t\t-------------------------------------------------\n";
+    cout << "\n\t Bus Fare:-> " << bus.getBusFare();
+    LOG_INFO("\nDisplay Ticket");
     cout << "\n";
 }
 
 // BOOK TICKET
 void Ticket::bookTicket()
 {
-    system("cls");
-
-    char from[20], to[20];
-    int chk = 0;
-
+    system("clear");
+    char source[BUFFER_SIZE], destination[BUFFER_SIZE];
+    int check = 0;
     Bus b;
-    fstream busFileStream, ticketFileStream, tempFileStream;
-
-    printHeading("BOOK TICKET");
-
-    busFileStream.open("buses.dat", ios::in | ios::app | ios::binary);
-    if (busFileStream.fail())
+    fstream bus, ticket, temp;
+    cout<<"\n------------BOOK TICKET-------------";
+    bus.open("buses.dat", ios::in | ios::app | ios::binary);
+    if (bus.fail())
     {
-        cout << "\n\t\t\t\t\t\t\t\t\t\tCan't Open File...!!\n";
+        cout << "\n\tCan't Open File...!!\n";
     }
-
     else
     {
-        cout << "\n\t\t\t\t\t\t\t\t\t\tEnter Source:-> ";
+        cout << "\n\tEnter Source:-> ";
         cin.ignore();
-        cin.getline(from, 20);
-        cout << "\n\t\t\t\t\t\t\t\t\t\tEnter Destination:-> ";
-        cin.getline(to, 20);
+        cin.getline(source,BUFFER_SIZE);
+        cout << "\n\tEnter Destination:-> ";
+        cin.getline(destination, BUFFER_SIZE);
 
-        system("cls");
-        printHeading("AVAILABLE BUSES");
-
-        busFileStream.read((char *)&b, sizeof(b));
-        while (!busFileStream.eof())
+        system("clear");
+        cout<<"\n-----------------AVAILABLE BUSES-------------------";
+        bus.read((char *)&b, sizeof(b));
+        while (!bus.eof())
         {
-            if (strcmp(b.getSource(), from) == 0 && strcmp(b.getDestination(), to) == 0)
+            if (strcmp(b.getSource(), source) == 0 && strcmp(b.getDestination(), destination) == 0)
             {
                 b.showBusDetails();
-                chk = 1;
+                check = 1;
             }
-            busFileStream.read((char *)&b, sizeof(b));
+            bus.read((char *)&b, sizeof(b));
         }
+        bus.close();
 
-        busFileStream.close();
-
-        if (chk == 0)
+        if (check == 0)
         {
-            cout << "\n\t\t\t\t\t\t\t\t\t\tNo Buses Found...!!\n";
+            cout << "\n\tNo Buses Found...!!\n";
         }
         else
         {
-            char bNo[10];
+            char bNo[SIZE];
             int booked = 0;
-
-            cout << "\n\t\t\t\t\t\t\t\t\t\tEnter Bus Number:-> ";
-            cin.getline(bNo, 10);
-
-            busFileStream.open("buses.dat", ios::in | ios::app | ios::binary);
-            tempFileStream.open("temp.dat", ios::out | ios::app | ios::binary);
-
-            busFileStream.read((char *)&b, sizeof(b));
-            while (!busFileStream.eof())
+            cout << "\n\tEnter Bus Number:-> ";
+            cin.getline(bNo, SIZE);
+            bus.open("buses.dat", ios::in | ios::app | ios::binary);
+            temp.open("temp.dat", ios::out | ios::app | ios::binary);
+            bus.read((char *)&b, sizeof(b));
+            while (!bus.eof())
             {
-                if (strcmp(b.getSource(), from) == 0 && strcmp(b.getDestination(), to) == 0 && strcmp(b.getBusNo(), bNo) == 0)
+                if (strcmp(b.getSource(), source) == 0 && strcmp(b.getDestination(), destination) == 0 && strcmp(b.getBusNo(), bNo) == 0)
                 {
                     if (b.getBookedSeats() >= 32)
                     {
-                        cout << "\n\t\t\t\t\t\t\t\t\t\tSeat not available...!!\n";
+                        cout << "\n\tSeat not available...!!\n";
                         break;
                     }
                     else
                     {
-                        system("cls");
-                        printHeading("BOOK TICKET");
-                        char n[20];
-                        cout << "\n\t\t\t\t\t\t\t\t\t\tEnter Customer Name :-> ";
-                        cin.getline(n, 20);
+                        system("clear");
+                        cout<<"\n-------------BOOK TICKET------------";
+                        char n[BUFFER_SIZE];
+                        cout << "\n\tEnter Customer Name :-> ";
+                        cin.getline(n, BUFFER_SIZE);
                         b.setBookedSeats();
                         generateTicket(n, b);
-                        ticketFileStream.open("tickets.dat", ios::out | ios::app | ios::binary);
-                        ticketFileStream.write((char *)this, sizeof(*this));
-                        ticketFileStream.close();
-                        tempFileStream.write((char *)&b, sizeof(b));
-
+                        ticket.open("tickets.dat", ios::out | ios::app | ios::binary);
+                        ticket.write((char *)this, sizeof(*this));
+                        ticket.close();
+                        temp.write((char *)&b, sizeof(b));
                         booked = 1;
-                        system("cls");
-                        printHeading("BOOKING DETAILS");
+                        system("clear");
+                        cout<<"\n---------BOOKING DETAILS-------------";
                         displayTicket();
-                        cout << "\n\t\t\t\t\t\t\t\t\t\tTicket Booked Successfully...!!\n";
+                        cout << "\n\tTicket Booked Successfully...!!\n";
                     }
                 }
                 else
                 {
-                    tempFileStream.write((char *)&b, sizeof(b));
+                    temp.write((char *)&b, sizeof(b));
                 }
-                busFileStream.read((char *)&b, sizeof(b));
+                bus.read((char *)&b, sizeof(b));
             }
 
             if (booked == 1)
             {
-                busFileStream.close();
-                tempFileStream.close();
+                bus.close();
+                temp.close();
                 remove("buses.dat");
                 rename("temp.dat", "buses.dat");
             }
         }
-        busFileStream.close();
+        bus.close();
     }
+    LOG_INFO("\nBook Ticket");
 }
 
 // CANCEL TICKET
 void Ticket::cancelTicket()
 {
-    system("cls");
+    system("clear");
+    char pnr[SIZE];
+    int check = 0;
+    fstream bus, ticket, temp, bus;
 
-    char pnr[10];
-    int chk = 0;
-
-    fstream busFileStream, ticketFileStream, tempFileStream, busTempFileStream;
-
-    printHeading("CANCEL TICKET");
-    cout << "\n\t\t\t\t\t\t\t\t\t\tEnter PNR Number:-> ";
+    cout<<"\n------------CANCEL TICKET--------------";
+    cout << "\n\tEnter PNR Number:-> ";
     cin.ignore();
-    cin.getline(pnr, 10);
-
-    ticketFileStream.open("tickets.dat", ios::in | ios::app | ios::binary);
-    tempFileStream.open("temp.dat", ios::out | ios::app | ios::binary);
-
-    if (ticketFileStream.fail())
+    cin.getline(pnr,SIZE);
+    ticket.open("tickets.dat", ios::in | ios::app | ios::binary);
+    temp.open("temp.dat", ios::out | ios::app | ios::binary);
+    if (ticket.fail())
     {
-        cout << "\n\t\t\t\t\t\t\t\t\t\tCan't Open File...!!\n";
+        cout << "\n\tCan't Open File...!!\n";
     }
-
     else
     {
-        ticketFileStream.read((char *)this, sizeof(*this));
-        while (!ticketFileStream.eof())
+        ticket.read((char *)this, sizeof(*this));
+        while (!ticket.eof())
         {
             if (strcmp(getPnrNo(), pnr) != 0)
             {
-                tempFileStream.write((char *)this, sizeof(*this));
+                temp.write((char *)this, sizeof(*this));
             }
             else
             {
                 Bus b;
-                busFileStream.open("buses.dat", ios::in | ios::app | ios::binary);
-                busTempFileStream.open("bustemp.dat", ios::out | ios::app | ios::binary);
-
-                busFileStream.read((char *)&b, sizeof(b));
-                while (!busFileStream.eof())
+                bus.open("buses.dat", ios::in | ios::app | ios::binary);
+                bus.open("bustemp.dat", ios::out | ios::app | ios::binary);
+                bus.read((char *)&b, sizeof(b));
+                while (!bus.eof())
                 {
                     if (strcmp(b.getBusNo(), bus.getBusNo()) == 0)
                     {
                         b.setCancelTicket();
-                        busTempFileStream.write((char *)&b, sizeof(b));
+                        bus.write((char *)&b, sizeof(b));
                     }
                     else
                     {
-                        busTempFileStream.write((char *)&b, sizeof(b));
+                        bus.write((char *)&b, sizeof(b));
                     }
-                    busFileStream.read((char *)&b, sizeof(b));
+                    bus.read((char *)&b, sizeof(b));
                 }
-                busFileStream.close();
-                busTempFileStream.close();
+                bus.close();
+                bus.close();
                 remove("buses.dat");
                 rename("bustemp.dat", "buses.dat");
-                chk = 1;
+                check = 1;
             }
-            ticketFileStream.read((char *)this, sizeof(*this));
+            ticket.read((char *)this, sizeof(*this));
         }
-        if (chk == 0)
+        if (check == 0)
         {
-            ticketFileStream.close();
-            tempFileStream.close();
-            cout << "\n\t\t\t\t\t\t\t\t\t\tTicket Not Found...!!\n";
+            ticket.close();
+            temp.close();
+            cout << "\n\tTicket Not Found...!!\n";
         }
         else
         {
-            ticketFileStream.close();
-            tempFileStream.close();
+            ticket.close();
+            temp.close();
             remove("tickets.dat");
             rename("temp.dat", "tickets.dat");
-            cout << "\n\t\t\t\t\t\t\t\t\t\tTicket Cancelled...!!\n";
+            cout << "\n\tTicket Cancelled...!!\n";
         }
     }
+    LOG_INFO("\nTicket cancel");
 }
 
 // EDIT TICKET
 void Ticket::editTicket()
 {
-    system("cls");
+    system("clear");
 
-    char pnr[10];
-    int chk = 0;
-
-    fstream ticketFileStream, tempFileStream;
-
-    printHeading("EDIT TICKET");
-    cout << "\n\t\t\t\t\t\t\t\t\t\tEnter PNR Number:-> ";
+    char pnr[SIZE];
+    int check = 0;
+    fstream ticket, temp;
+    cout<<"\n------------EDIT TICKET-------------");
+    cout << "\n\tEnter PNR Number:-> ";
     cin.ignore();
-    cin.getline(pnr, 10);
+    cin.getline(pnr,SIZE);
 
-    ticketFileStream.open("tickets.dat", ios::in | ios::app | ios::binary);
-
+    ticket.open("tickets.dat", ios::in | ios::app | ios::binary);
     if (ticketFileStream.fail())
     {
         cout << "\n\t\t\t\t\t\t\t\t\t\tCan't Open File...!!\n";
     }
-
     else
     {
-        tempFileStream.open("temp.dat", ios::out | ios::app | ios::binary);
+        temp.open("temp.dat", ios::out | ios::app | ios::binary);
 
-        ticketFileStream.read((char *)this, sizeof(*this));
-        while (!ticketFileStream.eof())
+        ticket.read((char *)this, sizeof(*this));
+        while (!ticket.eof())
         {
             if (strcmp(getPnrNo(), pnr) == 0)
             {
-                system("cls");
-                printHeading("EDIT TICKET");
-
+                system("clear");
+                cout<<"\n---------------EDIT TICKET-------------";
                 displayTicket();
-                char n[20];
-                cout << "\n\t\t\t\t\t\t\t\t\t\tEnter Passenger Name :-> ";
-                cin.getline(n, 20);
+                char n[BUFFER_SIZE];
+                cout << "\n\tEnter Passenger Name :-> ";
+                cin.getline(n, BUFFER_SIZE);
                 setName(n);
-                tempFileStream.write((char *)this, sizeof(*this));
-
-                chk = 1;
+                temp.write((char *)this, sizeof(*this));
+                check = 1;
             }
             else
             {
-                tempFileStream.write((char *)this, sizeof(*this));
+                temp.write((char *)this, sizeof(*this));
             }
-            ticketFileStream.read((char *)this, sizeof(*this));
+            ticket.read((char *)this, sizeof(*this));
         }
-
-        if (chk = 1)
+        if (check = 1)
         {
-            cout << "\n\t\t\t\t\t\t\t\t\t\tTicket Updated Successfully...!!\n";
+            cout << "\n\tTicket Updated Successfully...!!\n";
         }
         else
         {
-            cout << "\n\t\t\t\t\t\t\t\t\t\tTicket Not Found...!!\n";
+            cout << "\n\tTicket Not Found...!!\n";
         }
 
-        ticketFileStream.close();
-        tempFileStream.close();
+        ticket.close();
+        temp.close();
         remove("tickets.dat");
         rename("temp.dat", "tickets.dat");
     }
+    LOG_INFO("\nEdit Ticket");
 }
 
 // SHOW TICKET BY PNR
 void Ticket::showTicketsByPNR()
 {
-    system("cls");
-
-    char pnr[10];
+    system("clear");
+    char pnr[SIZE];
     int chk = 0;
-    fstream ticketFileStream;
+    fstream ticket;
 
-    printHeading("SHOW BOOKINGS BY PNR");
-    cout << "\n\t\t\t\t\t\t\t\t\t\tEnter PNR Number:-> ";
+    cout<<"\n-------SHOW BOOKINGS BY PNR--------";
+    cout << "\n\tEnter PNR Number:-> ";
     cin.ignore();
-    cin.getline(pnr, 10);
+    cin.getline(pnr, SIZE);
+    system("clear");
+    cout<<"\n--------BOOKINGS----------";
 
-    system("cls");
-
-    printHeading("BOOKINGS");
-
-    ticketFileStream.open("tickets.dat", ios::in | ios::app | ios::binary);
-    if (ticketFileStream.fail())
+    ticket.open("tickets.dat", ios::in | ios::app | ios::binary);
+    if (ticket.fail())
     {
-        cout << "\n\t\t\t\t\t\t\t\t\t\tCan't Open File...!!\n";
+        cout << "\n\tCan't Open File...!!\n";
     }
-
     else
     {
-        ticketFileStream.read((char *)this, sizeof(*this));
-        while (!ticketFileStream.eof())
+        ticket.read((char *)this, sizeof(*this));
+        while (!ticket.eof())
         {
             if (strcmp(getPnrNo(), pnr) == 0)
             {
                 displayTicket();
-                chk = 1;
+                check = 1;
             }
-            ticketFileStream.read((char *)this, sizeof(*this));
+            ticket.read((char *)this, sizeof(*this));
         }
-        if (chk == 0)
+        if (check == 0)
         {
-            cout << "\n\t\t\t\t\t\t\t\t\t\tNo Bookings...!!\n";
+            cout << "\n\tNo Bookings...!!\n";
         }
-        ticketFileStream.close();
+        ticket.close();
     }
+    LOG_INFO("\nTicket by PNR");
 }
 
 // SHOW TICKET BY NAME
 void Ticket::showTicketsByName()
 {
-    system("cls");
-
-    char n[20];
-    int chk = 0;
-    fstream ticketFileStream;
-
-    printHeading("SHOW BOOKINGS BY NAME");
-    cout << "\n\t\t\t\t\t\t\t\t\t\tEnter Passenger Name:-> ";
+    system("clear");
+    char n[BUFFER_SIZE];
+    int check = 0;
+    fstream ticket;
+    cout<<"\n------SHOW BOOKINGS BY NAME------";
+    cout << "\n\tEnter Passenger Name:-> ";
     cin.ignore();
-    cin.getline(n, 20);
-
-    system("cls");
-
-    printHeading("BOOKINGS");
-
-    ticketFileStream.open("tickets.dat", ios::in | ios::app | ios::binary);
-    if (ticketFileStream.fail())
+    cin.getline(n,BUFFER_SIZE);
+    system("clear");
+    cout<<"\n--------BOOKINGS--------";
+    ticket.open("tickets.dat", ios::in | ios::app | ios::binary);
+    if (ticket.fail())
     {
-        cout << "\n\t\t\t\t\t\t\t\t\t\tCan't Open File...!!\n";
+        cout << "\n\tCan't Open File...!!\n";
     }
 
     else
     {
-        ticketFileStream.read((char *)this, sizeof(*this));
-        while (!ticketFileStream.eof())
+        ticket.read((char *)this, sizeof(*this));
+        while (!ticket.eof())
         {
             if (strcmp(getName(), n) == 0)
             {
                 displayTicket();
-                chk = 1;
+                check = 1;
             }
-            ticketFileStream.read((char *)this, sizeof(*this));
+            ticket.read((char *)this, sizeof(*this));
         }
-        if (chk == 0)
+        if (check == 0)
         {
-            cout << "\n\t\t\t\t\t\t\t\t\t\tNo Bookings...!!\n";
+            cout << "\n\tNo Bookings...!!\n";
         }
-        ticketFileStream.close();
+        ticket.close();
     }
+    LOG_INFO("\nTicket by name");
 }
 
 // SHOW TICKET BY BUS
 void Ticket::showTicketsByBus()
 {
-    system("cls");
+    system("clear");
+    char bNo[SIZE];
+    int check = 0;
+    fstream ticket;
 
-    char bNo[10];
-    int chk = 0;
-    fstream ticketFileStream;
-
-    printHeading("SHOW BOOKINGS BY NAME");
-    cout << "\n\t\t\t\t\t\t\t\t\t\tEnter Bus Number:-> ";
+    cout<<"\n-----SHOW BOOKINGS BY NAME-------";
+    cout << "\n\tEnter Bus Number:-> ";
     cin.ignore();
-    cin.getline(bNo, 10);
+    cin.getline(bNo, SIZE);
 
-    system("cls");
-
-    printHeading("BOOKINGS");
-
-    ticketFileStream.open("tickets.dat", ios::in | ios::app | ios::binary);
-    if (ticketFileStream.fail())
+    system("clear");
+    cout<<"\n-----------BOOKINGS--------------";
+    ticket.open("tickets.dat", ios::in | ios::app | ios::binary);
+    if (ticket.fail())
     {
-        cout << "\n\t\t\t\t\t\t\t\t\t\tCan't Open File...!!\n";
+        cout << "\n\tCan't Open File...!!\n";
     }
 
     else
     {
-        ticketFileStream.read((char *)this, sizeof(*this));
-        while (!ticketFileStream.eof())
+        ticket.read((char *)this, sizeof(*this));
+        while (!ticket.eof())
         {
             if (strcmp(bus.getBusNo(), bNo) == 0)
             {
                 displayTicket();
-                chk = 1;
+                check = 1;
             }
-            ticketFileStream.read((char *)this, sizeof(*this));
+            ticket.read((char *)this, sizeof(*this));
         }
-        if (chk == 0)
+        if (check == 0)
         {
-            cout << "\n\t\t\t\t\t\t\t\t\t\tNo Bookings...!!\n";
+            cout << "\n\tNo Bookings...!!\n";
         }
-        ticketFileStream.close();
+        ticket.close();
     }
+    LOG_INFO("\nTicket by bus");
 }
 
 // SHOW TICKET BY SOURCE
 void Ticket::showTicketsBySource()
 {
-    system("cls");
+    system("clear");
+    char s[BUFFER_SIZE];
+    int check = 0;
+    fstream ticket;
 
-    char s[20];
-    int chk = 0;
-    fstream ticketFileStream;
-
-    printHeading("SHOW BOOKINGS BY SOURCE");
-    cout << "\n\t\t\t\t\t\t\t\t\t\tEnter Source:-> ";
+    cout<<"\n----SHOW BOOKINGS BY SOURCE----";
+    cout << "\n\tEnter Source:-> ";
     cin.ignore();
-    cin.getline(s, 20);
+    cin.getline(s, BUFFER_SIZE);
+    system("clear");
+    cout<<"\n-------BOOKINGS--------";
 
-    system("cls");
-
-    printHeading("BOOKINGS");
-
-    ticketFileStream.open("tickets.dat", ios::in | ios::app | ios::binary);
-    if (ticketFileStream.fail())
+    ticket.open("tickets.dat", ios::in | ios::app | ios::binary);
+    if (ticket.fail())
     {
-        cout << "\n\t\t\t\t\t\t\t\t\t\tCan't Open File...!!\n";
+        cout << "\n\tCan't Open File...!!\n";
     }
 
     else
     {
-        ticketFileStream.read((char *)this, sizeof(*this));
-        while (!ticketFileStream.eof())
+        ticket.read((char *)this, sizeof(*this));
+        while (!ticket.eof())
         {
             if (strcmp(bus.getSource(), s) == 0)
             {
                 displayTicket();
-                chk = 1;
+                check = 1;
             }
-            ticketFileStream.read((char *)this, sizeof(*this));
+            ticket.read((char *)this, sizeof(*this));
         }
-        if (chk == 0)
+        if (check == 0)
         {
-            cout << "\n\t\t\t\t\t\t\t\t\t\tNo Bookings...!!\n";
+            cout << "\n\tNo Bookings...!!\n";
         }
-        ticketFileStream.close();
+        ticket.close();
     }
+    LOG_INFO("\nTicket by source");
 }
 
 // SHOW TICKET BY DESTINATION
 void Ticket::showTicketsByDestination()
 {
-    system("cls");
+    system("clear");
 
-    char d[20];
-    int chk = 0;
-    fstream ticketFileStream;
+    char d[BUFFER_SIZE];
+    int check = 0;
+    fstream ticket;
 
-    printHeading("SHOW BOOKINGS BY DESTINATION");
-    cout << "\n\t\t\t\t\t\t\t\t\t\tEnter Destination:-> ";
+    cout<<"---SHOW BOOKINGS BY DESTINATION---";
+    cout << "\n\tEnter Destination:-> ";
     cin.ignore();
-    cin.getline(d, 20);
+    cin.getline(d, BUFFER_SIZE);
+    system("clear");
+    cout<<"\n-----------BOOKINGS---------";
 
-    system("cls");
-
-    printHeading("BOOKINGS");
-
-    ticketFileStream.open("tickets.dat", ios::in | ios::app | ios::binary);
-    if (ticketFileStream.fail())
+    ticket.open("tickets.dat", ios::in | ios::app | ios::binary);
+    if (ticket.fail())
     {
-        cout << "\n\t\t\t\t\t\t\t\t\t\tCan't Open File...!!\n";
+        cout << "\n\tCan't Open File...!!\n";
     }
-
     else
     {
-        ticketFileStream.read((char *)this, sizeof(*this));
-        while (!ticketFileStream.eof())
+        ticket.read((char *)this, sizeof(*this));
+        while (!ticket.eof())
         {
             if (strcmp(bus.getDestination(), d) == 0)
             {
                 displayTicket();
-                chk = 1;
+                check = 1;
             }
-            ticketFileStream.read((char *)this, sizeof(*this));
+            ticket.read((char *)this, sizeof(*this));
         }
-        if (chk == 0)
+        if (check == 0)
         {
-            cout << "\n\t\t\t\t\t\t\t\t\t\tNo Bookings...!!\n";
+            cout << "\n\tNo Bookings...!!\n";
         }
-        ticketFileStream.close();
+        ticket.close();
     }
+    LOG_INFO("\nShow By Destination");
 }
 
 // SHOW ALL BOOKINGS
 void Ticket::showAllTickets()
 {
-    system("cls");
-
-    fstream ticketFileStream;
-
-    system("cls");
-
-    printHeading("BOOKINGS");
-
-    ticketFileStream.open("tickets.dat", ios::in | ios::app | ios::binary);
-    if (ticketFileStream.fail())
+    system("clear");
+    fstream ticket;
+    system("clear");
+    cout<<"\n--------BOOKINGS-------";
+    ticket.open("tickets.dat", ios::in | ios::app | ios::binary);
+    if (ticket.fail())
     {
-        cout << "\n\t\t\t\t\t\t\t\t\t\tCan't Open File...!!\n";
+        cout << "\n\tCan't Open File...!!\n";
     }
 
     else
     {
-        ticketFileStream.read((char *)this, sizeof(*this));
-        while (!ticketFileStream.eof())
+        ticket.read((char *)this, sizeof(*this));
+        while (!ticket.eof())
         {
             displayTicket();
-            ticketFileStream.read((char *)this, sizeof(*this));
+            ticket.read((char *)this, sizeof(*this));
         }
-        ticketFileStream.close();
+        ticket.close();
     }
+    LOG_INFO("\nShow All Bookings");
 }
