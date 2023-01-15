@@ -13,45 +13,45 @@ using namespace std;
 // GETTERS
 char Bus:: *getBusNo()
 {
-    return busNo;
+    return this->busNo;
 }
 
 char Bus:: *getSource()
 {
-    return source;
+    return this->source;
 }
-char BUS:: *getDestination()
+char Bus:: *getDestination()
 {
-    return destination;
+    return this->destination;
 }
 char Bus:: *getSourceTime()
 {
-    return sourceTime;
+    return this->sourceTime;
 }
 char Bus:: *getDestinationTime()
 {
-    return destinationTime;
+    return this->destinationTime;
 }
 int Bus:: getBookedSeats()
 {
-    return bookedSeats;
+    return this->bookedSeats;
 }
 int Bus:: getMaxSeats()
 {
-    return maxSeats;
+    return this->maxSeats;
 }
 double Bus:: getBusFare()
 {
-    return busFare;
+    return this->busFare;
 }
 // SETTERS
 void Bus:: setBookedSeats()
 {
-    bookedSeats=bookedSeats + 1;
+    this->bookedSeats=bookedSeats + 1;
 }
 void Bus:: setCancelTicket()
 {
-    bookedSeats=bookedSeats - 1;
+    this->bookedSeats=bookedSeats - 1;
 }
 void Bus:: setSource(char *s)
 {
