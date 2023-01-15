@@ -36,70 +36,70 @@ public:
     void deleteBus();
     void editBus();
 
-    // GETTERS
-char Bus:: *getBusNo()
+// GETTERS
+char *getBusNo()
 {
-    return this->busNo;
+    return busNo;
 }
 
-char Bus:: *getSource()
+char *getSource()
 {
-    return this->source;
+    return source;
 }
-char Bus:: *getDestination()
+char *getDestination()
 {
-    return this->destination;
+    return destination;
 }
-char Bus:: *getSourceTime()
+char *getSourceTime()
 {
-    return this->sourceTime;
+    return sourceTime;
 }
-char Bus:: *getDestinationTime()
+char *getDestinationTime()
 {
-    return this->destinationTime;
+    return destinationTime;
 }
-int Bus:: getBookedSeats()
+int getBookedSeats()
 {
-    return this->bookedSeats;
+    return bookedSeats;
 }
-int Bus:: getMaxSeats()
+int getMaxSeats()
 {
-    return this->maxSeats;
+    return maxSeats;
 }
-double Bus:: getBusFare()
+double getBusFare()
 {
-    return this->busFare;
+    return busFare;
 }
 // SETTERS
-void Bus:: setBookedSeats()
+void setBookedSeats()
 {
-    this->bookedSeats=bookedSeats + 1;
+    bookedSeats=bookedSeats + 1;
 }
-void Bus:: setCancelTicket()
+void setCancelTicket()
 {
-    this->bookedSeats=bookedSeats - 1;
+    bookedSeats=bookedSeats - 1;
 }
-void Bus:: setSource(char *s)
+void setSource(char *s)
 {
     if (s && s[0])
         strcpy(source, s);
 }
-void Bus:: setDestination(char *d)
+void setDestination(char *d)
 {
     if (d && d[0])
         strcpy(destination, d);
 }
-void Bus:: setSourceTime(char *s)
+void setSourceTime(char *s)
 {
     if (s && s[0])
       strcpy(sourceTime, s);
 }
-void Bus:: setDestinationTime(char *d)
+void setDestinationTime(char *d)
 {
     if (d && d[0])
         strcpy(destinationTime, d);
 }
-void Bus:: setBusFare(double f)
+void setBusFare(double f)
 {
     if (f)
       busFare = f;
