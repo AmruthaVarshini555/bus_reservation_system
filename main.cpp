@@ -3,6 +3,7 @@
 #include<string>
 #include<cstring>
 #include<fstream>
+#include"menu.h"
 #include"bus.h"
 #include"ticket.h"
 using namespace std;
