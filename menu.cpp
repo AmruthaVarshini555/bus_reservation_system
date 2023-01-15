@@ -122,6 +122,7 @@ void Menu::adminMenu()
 //userlogin
 void Menu::userLogin(){
     int ch,tm;
+    Menu login;
     string name,pswd,username;
     string usrname,password;
     ofstream fileo;
@@ -146,17 +147,17 @@ void Menu::userLogin(){
             }
             cout<<"\nCreate a password: ";
             cin>>pswd;
-            fileo.open("user.txt".c_str());
+            fileo.open("user.txt","a");
             fileo<<username<<","<<name<<","<<pswd<<endl;
             cout<<"\nYour are registered successfully";
-            cout<<"\nPress any key to continue.."
+            cout<<"\nPress any key to continue..";
             fileo.close();
         case 2: 
             cout<<"\nEnter your username: ";
             cin>>username;
             cout<<"\nEnter your password: ";
             cin>>pswd;
-            filei.open("user.txt".c_str());
+            filei.open("user.txt","r");
             if(!filei.is_open() && filei.fail())
             {
                 cout<<"\nYou are not registered, please register before logging in..";
@@ -180,7 +181,7 @@ void Menu:: valid(string str)
     string user;
     int tm;
     ifstream file;
-    file.open("user.txt".c_str());
+    file.open("user.txt");
     if(!file.is_open() && file.fail())
     {
         return;
@@ -218,7 +219,7 @@ void Menu::userMenu()
         {
             case 1: t.bookTicket();
                     break;
-            case 2: t.showTicketByPNR();
+            case 2: t.showTicketsByPNR();
                     break;
             case 3: t.cancelTicket();
                     break;
