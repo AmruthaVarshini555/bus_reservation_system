@@ -3,11 +3,81 @@
 #include <cstring>
 #include <fstream>
 #include <iomanip>
+#include"logger.h"
 #include"header.h"
 #include "bus.h"
 #include "ticket.h"
 #include "utils.h"
 using namespace std;
+
+// GETTERS
+char BUS:: *getBusNo()
+{
+    return busNo;
+}
+
+char BUS:: *getSource()
+{
+    return source;
+}
+char BUS:: *getDestination()
+{
+    return destination;
+}
+char BUS:: *getSourceTime()
+{
+    return sourceTime;
+}
+char BUS:: *getDestinationTime()
+{
+    return destinationTime;
+}
+int BUS:: getBookedSeats()
+{
+    return bookedSeats;
+}
+int BUS:: getMaxSeats()
+{
+    return maxSeats;
+}
+double BUS:: getBusFare()
+{
+    return busFare;
+}
+// SETTERS
+void BUS:: setBookedSeats()
+{
+    bookedSeats++;
+}
+void BUS:: setCancelTicket()
+{
+    bookedSeats--;
+}
+void BUS:: setSource(char *s)
+{
+    if (s && s[0])
+        strcpy(source, s);
+}
+void BUS:: setDestination(char *d)
+{
+    if (d && d[0])
+        strcpy(destination, d);
+}
+void BUS:: setSourceTime(char *s)
+{
+    if (s && s[0])
+      strcpy(sourceTime, s);
+}
+void BUS:: setDestinationTime(char *d)
+{
+    if (d && d[0])
+        strcpy(destinationTime, d);
+}
+void BUS:: setBusFare(double f)
+{
+    if (f)
+      busFare = f;
+}
 
 // ADD BUS
 void Bus::addBus()
