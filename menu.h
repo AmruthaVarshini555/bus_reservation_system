@@ -1,3 +1,5 @@
+#ifndef __MENU_H__
+#define __MENU_H__
 #include<iostream>
 #include<string>
 #include"logger.h"
@@ -21,3 +23,4 @@ class Menu
             LOG_INFO("\nDestructor invoked");
         }
 };
+#endif /* __MENU_H__ */
