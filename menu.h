@@ -14,6 +14,7 @@ class Menu
         void adminLogin();
         void adminMenu();
         void userLogin();
+        void valid(string);
         void userMenu();
         void viewBookingsMenu();
         ~Menu(){
