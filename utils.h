@@ -1,5 +1,5 @@
-#ifndef UTILS_H
-#define UTILS_H
+#ifndef __UTILS_H__
+#define __UTILS_H__
 #include<iostream>
 #include <cstdlib>
 #include <string>
@@ -21,4 +21,4 @@ string getCurrentDate()
     tm *tPtr = localtime(&t);
     return to_string(tPtr->tm_mday) + "-" + to_string((tPtr->tm_mon) + 1) + "-" + to_string((tPtr->tm_year) + 1900);
 }
-#endif // UTILS_H
+#endif // __UTILS_H__
