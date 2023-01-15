@@ -29,12 +29,32 @@ public:
     void showAllTickets();
 
     // GETTERS
+    char *getName()
+    {
+        return name;
+    }
+    char *getPnrNo()
+    {
+        return pnrNo;
+    }
+    char *getDate()
+    {
+        return date;
+    }
+     // SETTERS
+    void setName(char *n)
+    {
+        if (n && n[0])
+            strcpy(name, n);
+    }
+
+    /*// GETTERS
     char *getName();
     char *getPnrNo();
     char *getDate();
     // SETTERS
     void setName(char*);
-    
+    */
     ~Ticket(){
         LOG_INFO("\nDestructor of ticket invoked");
     }
