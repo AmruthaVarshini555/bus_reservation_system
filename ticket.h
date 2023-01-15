@@ -1,5 +1,5 @@
-#ifndef TICKET_H
-#define TICKET_H
+#ifndef __TICKET_H__
+#define __TICKET_H__
 
 #include <iostream>
 #include"logger.h"
@@ -59,4 +59,4 @@ public:
         LOG_INFO("\nDestructor of ticket invoked");
     }
 };
-#endif // !TICKET_H
+#endif // __TICKET_H__
