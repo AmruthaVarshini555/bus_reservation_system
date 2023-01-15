@@ -117,47 +117,87 @@ void Menu::adminMenu()
         }
     }
 }
+
+//userlogin
 void Menu::userLogin(){
-    Menu login;
-    ifstream file;
-    string name,pswd;
-    int choice;
-    cout<<"\n-------------USER PORTAL--------------";
-    cout<<"\n1.Register";
-    cout<<"\n2.Login";
-    cout<<"\nEnter your choice: ";
-    switch(choice){
-        case 1: cout<<"Enter username: ";
-            cin>>name;
-            cout<<"Enter a password: ";
+    int ch,tm;
+    string name,pswd,username;
+    string usrname,password;
+    ofstream fileo;
+    ifstream filei;
+    cout<<"\n----------USER PORTAL-----------";
+    cout<<"\n 1. Register";
+    cout<<"\n 2. Login";
+    cout<<"\n Enter your choice: ";
+    cin>>ch;
+    switch(ch){
+        case 1:
+            cout<<"\nEnter your name: ";
+            cin.ignore();
+            getline(cin,name);
+            cout<<"\nCreate a username: ";
+            cin>>username;
+            tm=0;
+            valid(username);
+            if(tm>=3)
+            {
+                continue;
+            }
+            cout<<"\nCreate a password: ";
             cin>>pswd;
-            ofstream file;
-            file.open("user.txt");
-            file<<name<<","<<pswd;
-            file.close();
-            login.userLogin();
+            fileo.open("user.txt".c_str());
+            fileo<<username<<","<<name<<","<<pswd<<endl;
+            cout<<"\nYour are registered successfully";
+            cout<<"\nPress any key to continue.."
+            fileo.close();
         case 2: 
-            string nm,p;
-            cout<<"\nEnter your login credentials: ";
-            cout<<"\nEnter userid: ";
-            cin>>name;
-            cout<<"\nEnter password: ";
+            cout<<"\nEnter your username: ";
+            cin>>username;
+            cout<<"\nEnter your password: ";
             cin>>pswd;
-            ifstream file;
-            file.open("user.txt");
-            getline(file,nm);
-            getline(file,p);
-            if(nm==name && p=pswd){
-                cout<<"Succesful Login"<<endl;
-                system("PAUSE");
+            filei.open("user.txt".c_str());
+            if(!filei.is_open() && filei.fail())
+            {
+                cout<<"\nYou are not registered, please register before logging in..";
+                filei.close();
+                continue;
+            }
+            getline(filei,usrname);
+            getline(filei,password);
+            if(username==usrname && pswd==password)
+            {
+                cout<<"\n%s are successfully logged in :)"<<usrname;
+                filei.close();
                 login.userMenu();
             }
-            else{
-                cout<<"\nIncorrect Username or Password ";
-                login.userLogin();
+    }
+    
+}    
+
+void Menu:: valid(string str)
+{
+    string user;
+    int tm;
+    ifstream file;
+    file.open("user.txt".c_str());
+    if(!file.is_open() && file.fail())
+    {
+        return;
+    }
+    else{
+        tm++;
+        if(tm==3)
+        {
+            cout<<"\nThis username already exists\nPlease try again";
+            return;
         }
+        cout<<"\nThis username already exists\n Create username: ";
+        cin>>user;
+        valid(user);
     }
 }
+    
+//User Menu
 void Menu::userMenu()
 {
     int choice;
