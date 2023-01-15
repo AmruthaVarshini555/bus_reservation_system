@@ -37,6 +37,75 @@ public:
     void editBus();
 
     // GETTERS
+char Bus:: *getBusNo()
+{
+    return this->busNo;
+}
+
+char Bus:: *getSource()
+{
+    return this->source;
+}
+char Bus:: *getDestination()
+{
+    return this->destination;
+}
+char Bus:: *getSourceTime()
+{
+    return this->sourceTime;
+}
+char Bus:: *getDestinationTime()
+{
+    return this->destinationTime;
+}
+int Bus:: getBookedSeats()
+{
+    return this->bookedSeats;
+}
+int Bus:: getMaxSeats()
+{
+    return this->maxSeats;
+}
+double Bus:: getBusFare()
+{
+    return this->busFare;
+}
+// SETTERS
+void Bus:: setBookedSeats()
+{
+    this->bookedSeats=bookedSeats + 1;
+}
+void Bus:: setCancelTicket()
+{
+    this->bookedSeats=bookedSeats - 1;
+}
+void Bus:: setSource(char *s)
+{
+    if (s && s[0])
+        strcpy(source, s);
+}
+void Bus:: setDestination(char *d)
+{
+    if (d && d[0])
+        strcpy(destination, d);
+}
+void Bus:: setSourceTime(char *s)
+{
+    if (s && s[0])
+      strcpy(sourceTime, s);
+}
+void Bus:: setDestinationTime(char *d)
+{
+    if (d && d[0])
+        strcpy(destinationTime, d);
+}
+void Bus:: setBusFare(double f)
+{
+    if (f)
+      busFare = f;
+}
+
+ /*   // GETTERS
     char *getBusNo();
     char *getSource();
     char *getDestination();
@@ -53,7 +122,7 @@ public:
     void setDestination(char *);
     void setSourceTime(char*);
     void setDestinationTime(char*);
-    void setBusFare(double);
+    void setBusFare(double); */
     ~Bus(){
         LOG_INFO("\nBus Destructor invoked");
     }
