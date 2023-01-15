@@ -3,6 +3,7 @@
 #include"ticket.h"
 #include<iostream>
 #include<string>
+#include<cstring>
 #include<fstream>
 using namespace std;
 
