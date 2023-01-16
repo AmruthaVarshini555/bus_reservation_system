@@ -21,6 +21,8 @@ void Menu::welcomeScreen()
     cout<<"\n******Welcome to bus reservation system managements project******\n";
     cout<<"\n Developed By:- Group 3\n";
     system("PAUSE");
+    cout<<"\nPress enter to continue..";
+    getchar();
     menu.mainMenu();
 }
 //main menu
@@ -55,6 +57,7 @@ void Menu:: mainMenu()
 // Admin Login
 void Menu:: adminLogin()
 {
+    system("clear");
     Menu admin;
     string adminUsername, adminPassword;
     cout<<"\n-----------ADMIN LOGIN----------";
@@ -66,6 +69,8 @@ void Menu:: adminLogin()
     if(adminUsername == "reservation" && adminPassword == "Capg@123")
     {
         admin.adminMenu();
+        cout<<"Logged in successfully...";
+        system("PAUSE");
     }
     else
     {
@@ -128,6 +133,7 @@ void Menu::adminMenu()
 
 //userlogin
 void Menu::userLogin(){
+    system("clear");
     int ch,tm;
     Menu login;
     string name,pswd,username;
@@ -158,6 +164,7 @@ void Menu::userLogin(){
             fileo<<username<<","<<name<<","<<pswd<<endl;
             cout<<"\nYour are registered successfully";
             cout<<"\nPress any key to continue..";
+            login.userLogin();
             fileo.close();
         case 2: 
             cout<<"\nEnter your username: ";
@@ -168,7 +175,10 @@ void Menu::userLogin(){
             if(!filei.is_open() && filei.fail())
             {
                 cout<<"\nYou are not registered, please register before logging in..";
+                cout<<"\nPress enter to continue..";
+                getchar();
                 filei.close();
+                login.userLogin();
                 //continue;
             }
             getline(filei,usrname);
@@ -177,6 +187,7 @@ void Menu::userLogin(){
             {
                 cout<<"\n%s are successfully logged in :)"<<usrname;
                 filei.close();
+                system("PAUSE");
                 login.userMenu();
             }
     }
