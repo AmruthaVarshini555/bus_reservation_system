@@ -101,14 +101,10 @@ void Menu::adminMenu()
         cout<<"----------------ADMIN PORTAL-------------";
         cout<<"\n1. Add Bus\n";
         cout<<"\n2. View Bus\n";
-        cout<<"\n 3. Add Ticket\n";
-        cout<<"\n 4. Edit Ticket\n";
-        cout<<"\n 5. Cancel Ticket\n";
-        cout<<"\n 6. View Bookings\n";
-        cout<<"\n 7. View Bus Details\n";
-        cout<<"\n8. Edit Bus\n";
-        cout<<"\n 9. Delete Bus\n";
-        cout<<"\n 10. BACK\n";
+        cout<<"\n3. Edit Bus\n";
+        cout<<"\n4. Delete Bus\n";
+        cout<<"\n5. View Bookings\n";
+        cout<<"\n6. BACK\n";
         cout << "\nEnter your choice:-> ";
         cin >> choice;
         switch(choice)
@@ -246,6 +242,7 @@ void Menu::userMenu()
         cout<<"\n---------USER MENU---------";
         cout<<"\n1. Book Ticket";
         cout<<"\n2. View Ticket";
+        cout<<"\n3. Edit Ticket";
         cout<<"\n3. Cancel Ticket";
         cout<<"\n4. EXIT";
         cout<<"\nEnter your choice";
@@ -256,9 +253,11 @@ void Menu::userMenu()
                     break;
             case 2: t.showTicketsByPNR();
                     break;
-            case 3: t.cancelTicket();
+            case 3: t.editTicket();
                     break;
-            case 4: m.mainMenu();
+            case 4: t.cancelTicket();
+                    break;
+            case 5: m.mainMenu();
                     break;
             default: 
                 cout<<"Invaild choice";
