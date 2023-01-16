@@ -1,3 +1,11 @@
+/******************************************************************************
+
+Welcome to GDB Online.
+GDB online is an online compiler and debugger tool for C, C++, Python, PHP, Ruby, 
+C#, OCaml, VB, Perl, Swift, Prolog, Javascript, Pascal, HTML, CSS, JS
+Code, Compile, Run and Debug online from anywhere in world.
+
+*******************************************************************************/
 //Client file
 #include <iostream>
 #include<string>
@@ -19,10 +27,9 @@ void Menu::welcomeScreen()
 {
     Menu menu;
     system("clear");
-    cout<<"\n******Welcome to bus reservation system managements project******\n";
-    cout<<"\n Developed By:- Group 3\n";
-    system("PAUSE");
-    cout<<"\nPress enter to continue..";
+    cout<<"\n\t\t******Welcome to bus reservation system project******\n";
+    cout<<"\n\t\tDeveloped By:- Group 3\n";
+    cout<<"\n\tPress enter to continue..";
     getchar();
     menu.mainMenu();
 }
@@ -47,7 +54,7 @@ void Menu:: mainMenu()
                   break;
           case 2: obj1.userLogin();
                   break;
-          case 3: exit(0);
+          case 3: exit(EXIT_SUCCESS);
                   break;
           default: cout<<"Invalid choice";
                    obj1.mainMenu();
@@ -60,6 +67,7 @@ void Menu:: adminLogin()
 {
     system("clear");
     Menu admin;
+    int count=0;
     string adminUsername, adminPassword;
     cout<<"\n-----------ADMIN LOGIN----------";
     //enter adminusername and password;
@@ -67,15 +75,14 @@ void Menu:: adminLogin()
     cin>>adminUsername;
     cout<<"\nEnter Password";
     cin>>adminPassword;
-    if(adminUsername == "reservation" && adminPassword == "Capg@123")
+    if(adminUsername == "group3" && adminPassword == "Capg@123")
     {
         admin.adminMenu();
         cout<<"Logged in successfully...";
-        system("PAUSE");
     }
     else
     {
-        cout<<"\nUsername or Password is wrong...!!";
+        cout<<"\nEntered wrong username or password..";
         admin.adminLogin();
     }
     
@@ -135,65 +142,74 @@ void Menu::adminMenu()
 //userlogin
 void Menu::userLogin(){
     system("clear");
-    int ch,tm;
     Menu login;
-    string name,pswd,username;
-    string usrname,password;
+    int ch,tm;
+    string name,username,usrname,password,pswd,line;
     ofstream fileo;
     ifstream filei;
-    cout<<"\n----------USER PORTAL-----------";
-    cout<<"\n 1. Register";
-    cout<<"\n 2. Login";
-    cout<<"\n Enter your choice: ";
+    cout<<"\n---------USER PORTAL--------";
+    cout<<"\n\t1. Login";
+    cout<<"\n\t2. Register";
+    cout<<"\n\t3. Exit";
+    cout<<"\nEnter your choice: ";
     cin>>ch;
+    while(1){
     switch(ch){
-        case 1:
-            cout<<"\nEnter your name: ";
-            cin.ignore();
-            getline(cin,name);
-            cout<<"\nCreate a username: ";
+        case 1: 
+            cout<<"\nEnter username: ";
             cin>>username;
-            tm=0;
-            valid(username);
-            if(tm>=3)
-            {
-                //continue;
-            }
-            cout<<"\nCreate a password: ";
-            cin>>pswd;
-            fileo.open("user.txt");
-            fileo<<username<<","<<name<<","<<pswd<<endl;
-            cout<<"\nYour are registered successfully";
-            cout<<"\nPress any key to continue..";
-            login.userLogin();
-            fileo.close();
-        case 2: 
-            cout<<"\nEnter your username: ";
-            cin>>username;
-            cout<<"\nEnter your password: ";
-            cin>>pswd;
+            cout<<"\nEnter password: ";
+            cin>>password;
             filei.open("user.txt");
             if(!filei.is_open() && filei.fail())
             {
-                cout<<"\nYou are not registered, please register before logging in..";
-                cout<<"\nPress enter to continue..";
-                getchar();
+                cout<<"\nYou are not registerd, please register before login";
                 filei.close();
-                login.userLogin();
                 //continue;
             }
             getline(filei,usrname);
-            getline(filei,password);
-            if(username==usrname && pswd==password)
+            getline(filei,line);
+            getline(filei,pswd);
+            if(username==usrname && password==pswd)
             {
-                cout<<"\n%s are successfully logged in :)"<<usrname;
-                filei.close();
-                system("PAUSE");
+                cout<<"\nYour are successfully logged in :)";
                 login.userMenu();
+                filei.close();
             }
+            else{
+                cout<<"\nwrong username or password\n please try again..";
+                login.userLogin();
+            }
+            cout<<endl;
+            break;
+        case 2: 
+            cout<<"\nEnter your name: ";
+            cin.ignore();
+            getline(cin,name);
+            cout<<"\nCreate username: ";
+            cin>>username;
+            tm=0;
+            //valid(username);
+            if(tm>=3){
+                //continue;
+            }
+            cout<<"\nCreate Password: ";
+            cin>>password;
+            fileo.open("user.txt");
+            fileo<<username<<endl<<name<<endl<<password<<endl;
+            cout<<"\nYou are registered succesfully..";
+            login.userLogin();
+            fileo.close();
+            break;
+        case 3: login.mainMenu();
+                break;
+        default: cout<<"\n Invalid choice..";
+        break;
+        
     }
-    
-}    
+    }
+}
+
 
 void Menu:: valid(string str)
 {
@@ -212,7 +228,7 @@ void Menu:: valid(string str)
             cout<<"\nThis username already exists\nPlease try again";
             return;
         }
-       // cout<<"\nThis username already exists\n Create username: ";
+        cout<<"\nThis username already exists\n Create username: ";
         cin>>user;
         valid(user);
     }
