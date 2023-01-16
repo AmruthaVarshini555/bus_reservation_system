@@ -18,6 +18,7 @@ int main()
 void Menu::welcomeScreen()
 {
     Menu menu;
+    system("clear");
     cout<<"\n******Welcome to bus reservation system managements project******\n";
     cout<<"\n Developed By:- Group 3\n";
     system("PAUSE");
@@ -211,7 +212,7 @@ void Menu:: valid(string str)
             cout<<"\nThis username already exists\nPlease try again";
             return;
         }
-        cout<<"\nThis username already exists\n Create username: ";
+       // cout<<"\nThis username already exists\n Create username: ";
         cin>>user;
         valid(user);
     }
